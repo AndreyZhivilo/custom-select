@@ -112,6 +112,11 @@
 	background: rgba(19, 8, 23, 0.05);
 }
 
+.search_input:focus {
+	border: none;
+	outline: none;
+}
+
 .icon {
 	transform: rotate(0deg);
 	transition: transform 0.2s ease-in-out;
@@ -130,4 +135,23 @@
 .disabled {
 	border: 1px solid rgba(19, 8, 23, 0.1);
 	cursor: auto;
+}
+
+.text_gray {
+	color: #b4b2b2;
+}
+
+.create_option {
+	display: flex;
+	align-items: center;
+	padding: 5px;
+	margin-top: 20px;
+	gap: 4px;
+	transition: background-color 0.1s ease-in-out;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+.create_option:hover {
+	background-color: #f1eeee;
 }

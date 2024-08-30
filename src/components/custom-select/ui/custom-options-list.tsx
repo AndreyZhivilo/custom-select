@@ -19,6 +19,7 @@ export function CustomOptionsList<T>({
 	}) => React.ReactNode) | undefined
 }) {
 	if (!optionRender) return null
+	if (options.length === 0) return <div className={cx('list', 'text_gray')}>Ничего не найдено...</div>
 	return (
 		<div className={cx('list')}>
 			{options.map(option => {

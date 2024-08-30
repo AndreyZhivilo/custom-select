@@ -15,4 +15,6 @@ export type SelectProps<T> = {
 	tagRender?: (props: {label: string, value: T, onClose: () => void}) => ReactNode
 	optionRender?: (props: {label: string, value: T, onClick: () => void, isSelected: boolean}) => ReactNode
 	dropdownRender?: (menu: ReactNode) => ReactNode
+	showSearch?: boolean
+	createOptionAsync?: (option: string) => Promise<Option<T>>
 }

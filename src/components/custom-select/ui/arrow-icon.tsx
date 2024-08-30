@@ -1,7 +1,4 @@
-import css from './custom-select.module.css'
-import cn from 'classnames/bind'
-
-const cx = cn.bind(css)
+import { cx } from '../styles'
 
 export function ArrowIcon({ isOpen }: { isOpen: boolean }) {
 	return (

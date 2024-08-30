@@ -1,6 +1,7 @@
 import { CustomSelect } from './components/custom-select'
-import { renderPreviewOption } from './components/previewOption'
-import { renderPreviewTag } from './components/previewTag/ui/renderPreviewTag'
+import { renderPreviewOption } from './components/preview-option'
+import { renderPreviewTag } from './components/preview-tag'
+import { renderPreviewDropdown } from './components/preview-dropdown'
 import { sapmpleOptions, optionsWithAvatar, type SampleOption, type OptionWithAvatar } from './config'
 import { useState } from 'react'
 
@@ -28,7 +29,7 @@ function App() {
 				/>
 			</div>
 			<div className='container'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quo quam expedita nobis error inventore repudiandae cum vel! Nobis voluptatibus, alias culpa velit ipsum impedit voluptatum sequi voluptates rerum tempore!</div>
-			<div className="container">
+			<div className="container flex justify-around">
 				<CustomSelect
 					<OptionWithAvatar["value"]>
 					options={optionsWithAvatar}
@@ -37,6 +38,16 @@ function App() {
 					placeholder='Плейсхолдер'
 					tagRender={renderPreviewTag}
 					optionRender={renderPreviewOption}
+				/>
+				<CustomSelect
+					<OptionWithAvatar["value"]>
+					options={optionsWithAvatar}
+					onChange={(value) => setCurrentOption2(value)}
+					mode='multiple'
+					placeholder='Плейсхолдер'
+					tagRender={renderPreviewTag}
+					optionRender={renderPreviewOption}
+					dropdownRender={renderPreviewDropdown}
 				/>
 			</div>
 		</>

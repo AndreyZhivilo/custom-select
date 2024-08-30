@@ -1,9 +1,7 @@
+import { cx } from '../styles'
 import { CrossIcon } from './cross-icon'
-import css from './custom-select.module.css'
-import cn from 'classnames/bind'
 import type { SyntheticEvent } from 'react'
 
-const cx = cn.bind(css)
 
 export function Tag({
 	label,

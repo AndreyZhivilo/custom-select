@@ -3,7 +3,7 @@ import cn from 'classnames/bind'
 
 const cx = cn.bind(css)
 
-export function Icon({ isOpen }: { isOpen: boolean }) {
+export function ArrowIcon({ isOpen }: { isOpen: boolean }) {
 	return (
 		<span aria-hidden="true" role="img" aria-label='down' className={cx('icon', { 'rotated': !isOpen })}>
 			<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">

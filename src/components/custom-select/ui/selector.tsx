@@ -9,16 +9,18 @@ export function Selector({
 	content,
 	disabled = false,
 	isOpen = false,
+	error = false,
 	onClick
 }: {
 	search?: ReactNode,
 	content?: ReactNode,
 	disabled?: boolean,
 	isOpen?: boolean,
+	error: boolean,
 	onClick: () => void
 }) {
 	return (
-		<div className={cx('wrap_selector', { 'disabled': disabled })} onClick={onClick}>
+		<div className={cx('wrap_selector', { 'disabled': disabled }, { 'error': error })} onClick={onClick}>
 			{Boolean(search) && <SearchIcon />}
 			{content}
 			{search}

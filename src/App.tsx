@@ -2,102 +2,94 @@ import { CustomSelect } from './components/custom-select'
 import { renderPreviewOption } from './components/preview-option'
 import { renderPreviewTag } from './components/preview-tag'
 import { renderPreviewDropdown } from './components/preview-dropdown'
-import { sapmpleOptions, optionsWithAvatar, type SampleOption, type OptionWithAvatar } from './config'
-import { useState } from 'react'
+import { sapmpleOptions, sapmpleOptions2, optionsWithAvatar, type SampleOption, type OptionWithAvatar } from './config'
 import { mockAPIRequest } from './lib'
 
 
 
 function App() {
-	const [currentOption1, setCurrentOption1] = useState<SampleOption["value"] | SampleOption["value"][]>()
-	const [currentOption2, setCurrentOption2] = useState<OptionWithAvatar["value"] | OptionWithAvatar["value"][]>()
-
 
 	return (
-		<>
-			<div className="container">{JSON.stringify(currentOption1)}</div>
-			<div className="container">{JSON.stringify(currentOption2)}</div>
-
-			<div className='container pt-20'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quo quam expedita nobis error inventore repudiandae cum vel! Nobis voluptatibus, alias culpa velit ipsum impedit voluptatum sequi voluptates rerum tempore!</div>
-			<div className='container flex items-center justify-around'>
-				{/* <CustomSelect
-					<string>
-					options={sapmpleOptions}
-					onChange={(value) => setCurrentOption1(value)}
-					mode='single'
-					disabled={false}
-					placeholder='Плейсхолдер'
-				/>
-				<CustomSelect
-					<string>
-					options={sapmpleOptions}
-					onChange={(value) => setCurrentOption1(value)}
-					mode='multiple'
-					disabled={false}
-					placeholder='Плейсхолдер'
-				/> */}
+		<div className='pb-32'>
+			<div className='w-[900px] mx-auto pt-20'>
+				<h1 className='text-6xl font-bold text-center mb-7'>Select + Combobox для React </h1>
 			</div>
-			<div className='container'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quo quam expedita nobis error inventore repudiandae cum vel! Nobis voluptatibus, alias culpa velit ipsum impedit voluptatum sequi voluptates rerum tempore!</div>
-			<div className="container flex justify-around">
-				{/* <CustomSelect
-					<OptionWithAvatar["value"]>
-					options={optionsWithAvatar}
-					onChange={(value) => setCurrentOption2(value)}
-					mode='multiple'
-					placeholder='Плейсхолдер'
-					tagRender={renderPreviewTag}
-					optionRender={renderPreviewOption}
-				/>
-				<CustomSelect
-					<OptionWithAvatar["value"]>
-					options={optionsWithAvatar}
-					onChange={(value) => setCurrentOption2(value)}
-					mode='multiple'
-					placeholder='Плейсхолдер'
-					tagRender={renderPreviewTag}
-					optionRender={renderPreviewOption}
-					dropdownRender={renderPreviewDropdown}
-				/>
+			<p className="w-[900px] mx-auto text-center mb-5">
+				Это отдельный компонент Select. Работает аналогично компоненту из <a href='https://ant.design/components/select' className='text-blue-900'>AntDesign</a>. Может работать в режимах одиночного и множественного выбора.
+			</p>
+			<section className='w-[900px] mx-auto grid grid-cols-2 gap-7 mb-7'>
 				<CustomSelect
 					<string>
 					options={sapmpleOptions}
-					onChange={(value) => setCurrentOption1(value)}
+					onChange={(value) => console.log(value)}
 					mode='single'
 					disabled={false}
-					placeholder='Плейсхолдер'
-					showSearch={true}
-				/> */}
+					placeholder='Выбирите город'
+				/>
 				<CustomSelect
 					<string>
 					options={sapmpleOptions}
-					onChange={(value) => setCurrentOption1(value)}
+					onChange={(value) => console.log(value)}
 					mode='multiple'
 					disabled={false}
-					placeholder='Плейсхолдер'
+					placeholder='Выбирите города'
+				/>
+			</section>
+			<p className='w-[900px] mx-auto text-center mb-5'>Если опций много можно включить режим текстового поиска.</p>
+			<section className="w-[900px] mx-auto grid grid-cols-2 gap-7 mb-7">
+				<CustomSelect
+					<string>
+					options={sapmpleOptions}
+					onChange={(value) => console.log(value)}
+					mode='single'
+					disabled={false}
+					placeholder='Выбирите город'
 					showSearch={true}
 				/>
+				<CustomSelect
+					<string>
+					options={sapmpleOptions2}
+					onChange={(value) => console.log(value)}
+					mode='multiple'
+					disabled={false}
+					placeholder='Выбирите сотрудника'
+					showSearch={true}
+				/>
+			</section>
+			<p className='w-[900px] mx-auto text-center mb-5'>Внутрь можно передать собственные компоненты для отображения тегов, дропдауна и списка опций</p>
+			<section className="w-[900px] mx-auto mb-7">
 				<CustomSelect
 					<OptionWithAvatar["value"]>
 					options={optionsWithAvatar}
-					onChange={(value) => setCurrentOption2(value)}
+					onChange={(value) => console.log(value)}
 					mode='multiple'
-					placeholder='Плейсхолдер'
+					placeholder='Выбирите сотрудника'
 					tagRender={renderPreviewTag}
 					optionRender={renderPreviewOption}
 					dropdownRender={renderPreviewDropdown}
-					showSearch={true}
 				/>
+			</section>
+			<section className="w-[900px] mx-auto grid grid-cols-2 gap-7 mb-7">
 				<CustomSelect
 					<string>
 					options={sapmpleOptions}
-					onChange={(value) => setCurrentOption1(value)}
+					onChange={(value) => console.log(value)}
 					mode='multiple'
-					placeholder='Плейсхолдер'
+					placeholder='Выбирите города'
 					showSearch={true}
 					createOptionAsync={mockAPIRequest}
 				/>
-			</div>
-		</>
+				<p>А еще можно передать асинхронную функцию, чтобы пользователь мог добавлять елементы списка на удаленный сервер по API</p>
+			</section>
+			<section className="w-[900px] mx-auto mb-7">
+				<div className='font-bold text-xl mb-4'>Дополнительные фичи:</div>
+				<ul className='list-decimal pl-4'>
+					<li className='mb-1'>Поддерживает TypeScript. Можно передать в него любой тип и он сохранит типизацию.</li>
+					<li className='mb-1'>Есть свойство error, которое можно использовать если вы хотите дополнительно валидировать содержимое</li>
+					<li className='mb-1'>Можно сделать селект неактивным с помощью свойства disabled</li>
+				</ul>
+			</section>
+		</div>
 	)
 }
 

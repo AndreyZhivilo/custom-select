@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useSelectState } from '../model/useSelectState';
 import { CustomTags } from './custom-tags';
 import { DefaultTags } from './default-tags';
@@ -10,6 +10,7 @@ import { Selector } from './selector'
 import type { SelectProps } from '../types'
 import { CreateOption } from './createOption';
 import { mockAPIRequest } from '../../../lib';
+import { useClickOutside } from '../../../lib';
 
 
 export function CustomSelect<T>({
@@ -18,13 +19,13 @@ export function CustomSelect<T>({
 	disabled = false,
 	placeholder = 'placeholder',
 	showSearch = false,
+	error = false,
 	onChange,
 	tagRender,
 	optionRender,
 	dropdownRender,
 	createOptionAsync
 }: SelectProps<T>) {
-
 	const {
 		options,
 		selected,
@@ -36,20 +37,25 @@ export function CustomSelect<T>({
 		onOptionClick,
 		toggleOpen,
 		onSearch,
-		createOption
+		createOption,
+		openDropdown,
+		closeDropdown,
 	} = useSelectState<T>({ mode, disabled, initialOptions, onChange })
+
+	const selectRef = useRef(null)
+	useClickOutside(selectRef, closeDropdown)
 
 
 	const searchInput = showSearch
 		&& !(mode === 'single' && selected.length && !isOpen)
-		&& <SearchInput value={search} onChange={onSearch} plaiceholder={placeholder} />
+		&& <SearchInput value={search} onChange={onSearch} plaiceholder={placeholder} onFocus={openDropdown} />
 
 	const selectorContent = Boolean(selected.length)
 		? (mode === 'multiple'
 			? (tagRender
 				? <CustomTags<T> tags={selected} tagRender={tagRender} onDelete={onOptionDelete} />
 				: <DefaultTags<T> tags={selected} onDelete={onOptionDelete} />)
-			: !(showSearch && isOpen) && <span>{selected[0].label}</span>
+			: !(showSearch && isOpen) && <span className={cx('single_content')}>{selected[0].label}</span>
 		)
 		: (!showSearch && <div className={cx('placeholder')}>{placeholder}</div>)
 
@@ -59,6 +65,7 @@ export function CustomSelect<T>({
 		disabled={disabled}
 		isOpen={isOpen}
 		onClick={toggleOpen}
+		error={error}
 	/>
 
 
@@ -75,7 +82,7 @@ export function CustomSelect<T>({
 	}
 
 	return (
-		<div className={cx("wrap")}>
+		<div className={cx("wrap")} ref={selectRef}>
 			{selector}
 			<div className={cx('wrap_dropdown', { 'visually-hidden': !isOpen })} role='listbox'>
 				{dropdown}

@@ -26,16 +26,24 @@ export function useSelectState<T>({
 		setIsOpen(prev => !prev)
 	}
 
+	const openDropdown = () => {
+		setIsOpen(true)
+	}
+
+	const closeDropdown = () => {
+		setIsOpen(false)
+	}
+
 	const isSelected = (label: string) => Boolean(selectedMapRef.current?.[label])
 
 	const onOptionClick = (option: Option<T>) => {
 		setIsOpen(false)
 		setSearch('')
 		if (mode === 'single') {
-			isSelected(option.label) || setSelected([option])
+			isSelected(option.label) ? onOptionDelete(option.label): setSelected([option])
 		}
 		if (mode === 'multiple') {
-			isSelected(option.label) || setSelected([...selected, option])
+			isSelected(option.label) ? onOptionDelete(option.label): setSelected([...selected, option])
 		}
 	}
 
@@ -48,6 +56,7 @@ export function useSelectState<T>({
 	}
 
 	const createOption = async (option: string, createOption: (option: string) => Promise<Option<T>>) => {
+		if(option.length === 0) return 
 		setLoading(true)
 		createOption(option)
 		.then((data) => {				
@@ -61,8 +70,7 @@ export function useSelectState<T>({
 	}
 
 	const onSearch = (value: string) => {
-		const searchString = value.toLocaleLowerCase()
-		setSearch(searchString)
+		setSearch(value)
 	}
 
 
@@ -82,10 +90,11 @@ export function useSelectState<T>({
 
 }, [selected])
 
-	useEffect(() => {		
-		if(search?.length) {
+	useEffect(() => {
+		const searchString = search?.toLocaleLowerCase().trim()
+		if(searchString?.length) {
 			if(!isOpen) setIsOpen(true)
-			setFilteredOptions(options.filter(option => option.label.toLocaleLowerCase().includes(search)))
+			setFilteredOptions(options.filter(option => option.label.toLocaleLowerCase().includes(searchString)))
 		} else {
 			setFilteredOptions(options)
 		}
@@ -103,6 +112,8 @@ export function useSelectState<T>({
 		onOptionClick,
 		toggleOpen,
 		onSearch,
-		createOption
+		createOption,
+		openDropdown,
+		closeDropdown
 	}
 }

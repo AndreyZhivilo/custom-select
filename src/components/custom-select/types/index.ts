@@ -17,4 +17,5 @@ export type SelectProps<T> = {
 	dropdownRender?: (menu: ReactNode) => ReactNode
 	showSearch?: boolean
 	createOptionAsync?: (option: string) => Promise<Option<T>>
+	error?: boolean
 }

@@ -14,18 +14,30 @@ export type OptionWithAvatar = {
 }
 
 export const sapmpleOptions = [
-	{ value: 'sample1', label: 'sample 1' }, 
-	{ value: 'sample2', label: 'sample 2' },
-	{ value: 'sample3', label: 'sample 3' },
-	{ value: 'sample4', label: 'sample 4' },
-	{ value: 'sample5', label: 'sample 5' },
-	{ value: 'sample6', label: 'sample 6' },
-	{ value: 'sample7', label: 'sample 7' },
-	{ value: 'sample8', label: 'sample 8' },
-	{ value: 'sample9', label: 'sample 9' },
-	{ value: 'sample10', label: 'sample 10' },
-	{ value: 'sampl11', label: 'sample 11' },
-	{ value: 'sample12', label: 'sample 12' }
+	{ value: 'москва', label: 'Москва' }, 
+	{ value: 'тула', label: 'Тула' },
+	{ value: 'тверь', label: 'Тверь' },
+	{ value: 'анадырь', label: 'Анадырь' },
+	{ value: 'уфа', label: 'Уфа' },
+	{ value: 'ростов-на-дону', label: 'Ростов-на-дону' },
+	{ value: 'краснодар', label: 'Краснодар' },
+	{ value: 'махачкала', label: 'Махачкала' },
+	{ value: 'ставрополь', label: 'Ставрополь' },
+	{ value: 'нальчик', label: 'Нальчик' },
+	{ value: 'владикавказ', label: 'Владикавказ' },
+	{ value: 'сочи', label: 'Сочи' }
+]
+
+export const sapmpleOptions2 = [
+	{ value: 'Кузнецов И.', label: 'Кузнецов И.' }, 
+	{ value: 'Петров В.', label: 'Петров В.' },
+	{ value: 'Макаров Д.', label: 'Макаров Д.' },
+	{ value: 'Ковалев В.', label: 'Ковалев В.' },
+	{ value: 'Кудрявцев И.', label: 'Кудрявцев И.' },
+	{ value: 'Сафонов М.', label: 'Сафонов М.' },
+	{ value: 'Волков А.', label: 'Волков А.' },
+	{ value: 'Черников М.', label: 'Черников М.' },
+
 ]
 
 export const optionsWithAvatar = [

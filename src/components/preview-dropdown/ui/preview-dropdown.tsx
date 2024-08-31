@@ -6,9 +6,9 @@ export function PreviewDropdown({
 	menu: ReactNode
 }) {
 	return (
-		<>
+		<div>
 			{menu}
-			<span>Custom Part</span>
-		</>
+			<div className="p-5 bg-slate-50 rounded-lg">Сюда можно добавить свой элемент</div>
+		</div>
 	)
 }

@@ -5,3 +5,5 @@ export function mockAPIRequest<T>(option: string) {
 		setTimeout(() => res({value: option as T, label: option}), 3000)
 	})
 }
+
+export {useClickOutside} from './useClickOutside'

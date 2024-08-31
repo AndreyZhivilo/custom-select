@@ -1,19 +1,25 @@
 .wrap {
 	position: relative;
-	width: max-content;
+	font-size: 15px;
+	line-height: 24px;
 }
 
 .wrap_selector {
-	max-width: 500px;
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: flex-start;
 	gap: 5px;
 	border: 1px solid rgba(19, 8, 23, 0.2);
 	border-radius: 8px;
-	padding: 16px 12px 16px 16px;
+	padding: 10px 12px 10px 16px;
 	background-color: #fff;
 	cursor: pointer;
+	transition: all 0.1s ease;
+}
+
+.wrap_selector:hover {
+	border: 1px solid rgba(110, 50, 140, 0.48);
+	box-shadow: 0 0 0 3px rgba(113, 48, 142, 0.12);
 }
 
 .wrap_dropdown {
@@ -42,6 +48,7 @@
 	display: flex;
 	gap: 4px;
 	flex-wrap: wrap;
+	flex-grow: 3;
 }
 
 .tag {
@@ -49,19 +56,19 @@
 	align-items: center;
 	gap: 3px;
 	border-radius: 4px;
-	padding: 4px 7px;
+	padding: 0 7px;
 	background: rgba(110, 50, 140, 0.06);
 	color: #6e328c;
+	font-weight: 600;
 }
 
 
 
 .placeholder {
 	font-weight: 500;
-	font-size: 15px;
-	line-height: 147%;
 	letter-spacing: -0.01em;
 	color: rgba(19, 8, 23, 0.4);
+	flex-grow: 1;
 }
 
 .list {
@@ -112,14 +119,26 @@
 	background: rgba(19, 8, 23, 0.05);
 }
 
+.search_input {
+	flex-grow: 1;
+}
+
+
 .search_input:focus {
 	border: none;
 	outline: none;
+	flex-grow: 1;
+}
+
+.single_content {
+	flex-grow: 1;
 }
 
 .icon {
 	transform: rotate(0deg);
 	transition: transform 0.2s ease-in-out;
+	flex-grow: 0;
+	flex-shrink: 0;
 }
 
 .rotated {
@@ -154,4 +173,9 @@
 
 .create_option:hover {
 	background-color: #f1eeee;
+}
+
+.error {
+	border: 1px solid #e8433d;
+	box-shadow: 0 0 0 3px rgba(232, 67, 61, 0.12);
 }

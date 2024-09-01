@@ -41,9 +41,9 @@ export const sapmpleOptions2 = [
 ]
 
 export const optionsWithAvatar = [
-	{value: {id: 1, avatar: '/avatar.jpg', name: 'Кузнецов. И', mail: 'sample@gmail.com'}, label: 'Кузнецов. И'},
-	{value: {id: 2, avatar: '/avatar.jpg', name: 'Петров. В', mail: 'sample@gmail.com'}, label: 'Петров. В'},
-	{value: {id: 3, avatar: '/avatar.jpg', name: 'Макаров. Д', mail: 'sample@gmail.com'}, label: 'Макаров. Д'},
-	{value: {id: 4, avatar: '/avatar.jpg', name: 'Ковалев. В', mail: 'sample@gmail.com'}, label: 'Ковалев. В'},
-	{value: {id: 5, avatar: '/avatar.jpg', name: 'Кудрявцев. И', mail: 'sample@gmail.com'}, label: 'Кудрявцев. И'},
+	{value: {id: 1, avatar: 'avatar.jpg', name: 'Кузнецов. И', mail: 'sample@gmail.com'}, label: 'Кузнецов. И'},
+	{value: {id: 2, avatar: 'avatar.jpg', name: 'Петров. В', mail: 'sample@gmail.com'}, label: 'Петров. В'},
+	{value: {id: 3, avatar: 'avatar.jpg', name: 'Макаров. Д', mail: 'sample@gmail.com'}, label: 'Макаров. Д'},
+	{value: {id: 4, avatar: 'avatar.jpg', name: 'Ковалев. В', mail: 'sample@gmail.com'}, label: 'Ковалев. В'},
+	{value: {id: 5, avatar: 'avatar.jpg', name: 'Кудрявцев. И', mail: 'sample@gmail.com'}, label: 'Кудрявцев. И'},
 ]

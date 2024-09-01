@@ -6,4 +6,3 @@ export function mockAPIRequest<T>(option: string) {
 	})
 }
 
-export {useClickOutside} from './useClickOutside'

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { useSelectState } from '../model/useSelectState';
 import { CustomTags } from './custom-tags';
 import { DefaultTags } from './default-tags';
@@ -7,10 +7,10 @@ import { DefaultOptionsList } from './default-options-list';
 import { CustomOptionsList } from './custom-options-list';
 import { SearchInput } from './search-input';
 import { Selector } from './selector'
-import type { SelectProps } from '../types'
 import { CreateOption } from './createOption';
 import { mockAPIRequest } from '../../../lib';
-import { useClickOutside } from '../../../lib';
+import { useClickOutside } from '../lib/useClickOutside';
+import type { SelectProps } from '../types'
 
 
 export function CustomSelect<T>({
@@ -74,8 +74,8 @@ export function CustomSelect<T>({
 		: <DefaultOptionsList options={options} isSelected={isSelected} onOptionClick={onOptionClick} />
 
 	let dropdown = dropdownRender
-		? <React.Fragment>{dropdownRender(optionsList)}</React.Fragment>
-		: <React.Fragment>{optionsList}</React.Fragment>
+		? <>{dropdownRender(optionsList)}</>
+		: <>{optionsList}</>
 
 	if (createOptionAsync && showSearch) {
 		dropdown = <>{dropdown} <CreateOption isLoading={loading} onClick={() => createOption(search, mockAPIRequest)} /></>

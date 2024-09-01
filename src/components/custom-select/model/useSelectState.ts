@@ -36,15 +36,14 @@ export function useSelectState<T>({
 
 	const isSelected = (label: string) => Boolean(selectedMapRef.current?.[label])
 
-	const onOptionClick = (option: Option<T>) => {
-		setIsOpen(false)
-		setSearch('')
-		if (mode === 'single') {
-			isSelected(option.label) ? onOptionDelete(option.label): setSelected([option])
-		}
-		if (mode === 'multiple') {
-			isSelected(option.label) ? onOptionDelete(option.label): setSelected([...selected, option])
-		}
+
+	const onOptionSelect = (option: Option<T>) => {
+			if (mode === 'single') {
+				isSelected(option.label) ? onOptionDelete(option.label): setSelected([option])
+			}
+			if (mode === 'multiple') {
+				isSelected(option.label) ? onOptionDelete(option.label): setSelected([...selected, option])
+			}
 	}
 
 	const onOptionDelete = (label: string) => {
@@ -53,6 +52,12 @@ export function useSelectState<T>({
 
 	const onOptionAdd = (option: Option<T>) => {
 		setOptions([...options, option])
+	}
+
+	const onOptionClick = (option: Option<T>) => {
+		closeDropdown()
+		setSearch('')
+		onOptionSelect(option)
 	}
 
 	const createOption = async (option: string, createOption: (option: string) => Promise<Option<T>>) => {
@@ -93,12 +98,11 @@ export function useSelectState<T>({
 	useEffect(() => {
 		const searchString = search?.toLocaleLowerCase().trim()
 		if(searchString?.length) {
-			if(!isOpen) setIsOpen(true)
 			setFilteredOptions(options.filter(option => option.label.toLocaleLowerCase().includes(searchString)))
 		} else {
 			setFilteredOptions(options)
 		}
-	}, [search, isOpen])
+	}, [search, options])
 
 	
 	return {

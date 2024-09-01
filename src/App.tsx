@@ -2,7 +2,7 @@ import { CustomSelect } from './components/custom-select'
 import { renderPreviewOption } from './components/preview-option'
 import { renderPreviewTag } from './components/preview-tag'
 import { renderPreviewDropdown } from './components/preview-dropdown'
-import { sapmpleOptions, sapmpleOptions2, optionsWithAvatar, type SampleOption, type OptionWithAvatar } from './config'
+import { sapmpleOptions, sapmpleOptions2, optionsWithAvatar, type OptionWithAvatar } from './config'
 import { mockAPIRequest } from './lib'
 
 

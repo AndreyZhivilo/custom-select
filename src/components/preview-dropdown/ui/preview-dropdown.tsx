@@ -8,7 +8,7 @@ export function PreviewDropdown({
 	return (
 		<div>
 			{menu}
-			<div className="p-5 bg-slate-50 rounded-lg">Сюда можно добавить свой элемент</div>
+			<div className="p-5 bg-slate-50 rounded-lg">Сюда можно добавить свой компонент</div>
 		</div>
 	)
 }

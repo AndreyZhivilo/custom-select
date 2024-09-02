@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useMemo } from "react";
 import type { Option } from "../types";
 
 
@@ -11,15 +11,27 @@ export function useSelectState<T>({
 	initialOptions: Option<T>[],
 	mode: 'single' | 'multiple' ,
 	disabled: boolean,
-	onChange: (value: T | T[]) => void,
+	onChange: (value: T | T[] | null) => void,
 }){
 	const [selected, setSelected] = useState<Option<T>[]>([])
 	const [options, setOptions] = useState<Option<T>[]>(initialOptions)
-	const [filteredOptions, setFilteredOptions] = useState<Option<T>[]>(initialOptions)
 	const [isOpen, setIsOpen] = useState(false)
 	const [search, setSearch] = useState<string>()
-	const selectedMapRef = useRef<{ [key: string]: T }>()
 	const [loading, setLoading] = useState(false)
+
+	const selectedMap = useMemo(() => selected.reduce((acc, curr) => {
+			acc[curr.label] = curr.value
+			return acc
+		}, {} as { [key: string]: T }), [selected])
+
+
+	const filteredOptions = useMemo(() => {
+		const searchString = search?.toLocaleLowerCase().trim()
+		if(searchString?.length) {
+			return options.filter(option => option.label.toLocaleLowerCase().includes(searchString))
+		} 
+		return options
+	}, [search, options])
 
 	const toggleOpen = () => {
 		if (disabled) return
@@ -34,20 +46,28 @@ export function useSelectState<T>({
 		setIsOpen(false)
 	}
 
-	const isSelected = (label: string) => Boolean(selectedMapRef.current?.[label])
+	const isSelected = (label: string) => Boolean(selectedMap[label])
 
 
 	const onOptionSelect = (option: Option<T>) => {
-			if (mode === 'single') {
-				isSelected(option.label) ? onOptionDelete(option.label): setSelected([option])
+			if (mode === 'single') {				
+				onChange(option.value)
+				setSelected([option])
+				
 			}
 			if (mode === 'multiple') {
-				isSelected(option.label) ? onOptionDelete(option.label): setSelected([...selected, option])
+				const selectedOptions = [...selected, option]
+				onChange(selectedOptions.map(option => option.value))
+				setSelected(selectedOptions)
+				
 			}
 	}
 
 	const onOptionDelete = (label: string) => {
-		setSelected(selected.filter(item => item.label !== label))
+		const selectedOptions = selected.filter(item => item.label !== label)
+		const selectedValues = selectedOptions.map(option => option.value)
+		onChange(selectedValues.length ? selectedValues : null)
+		setSelected(selectedOptions)
 	}
 
 	const onOptionAdd = (option: Option<T>) => {
@@ -57,7 +77,7 @@ export function useSelectState<T>({
 	const onOptionClick = (option: Option<T>) => {
 		closeDropdown()
 		setSearch('')
-		onOptionSelect(option)
+		isSelected(option.label)? onOptionDelete(option.label) : onOptionSelect(option)
 	}
 
 	const createOption = async (option: string, createOption: (option: string) => Promise<Option<T>>) => {
@@ -77,33 +97,6 @@ export function useSelectState<T>({
 	const onSearch = (value: string) => {
 		setSearch(value)
 	}
-
-
-
-	useEffect(() => {
-		if (mode === 'single') {
-			onChange(selected[0]?.value)
-		}
-		if (mode === 'multiple') {
-			onChange(selected.map(item => item.value))
-		}
-
-		selectedMapRef.current = selected.reduce((acc, curr) => {
-			acc[curr.label] = curr.value
-			return acc
-		}, {} as { [key: string]: T })
-
-}, [selected])
-
-	useEffect(() => {
-		const searchString = search?.toLocaleLowerCase().trim()
-		if(searchString?.length) {
-			setFilteredOptions(options.filter(option => option.label.toLocaleLowerCase().includes(searchString)))
-		} else {
-			setFilteredOptions(options)
-		}
-	}, [search, options])
-
 	
 	return {
 		search,

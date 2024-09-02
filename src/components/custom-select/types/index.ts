@@ -8,7 +8,7 @@ export type Option<T> = {
 
 export type SelectProps<T> = {
 	options: Option<T>[],
-	onChange: (value: T | T[]) => void,
+	onChange: (value: T | T[] | null) => void,
 	mode?: 'single' | 'multiple' 
 	disabled?: boolean
 	placeholder?: string

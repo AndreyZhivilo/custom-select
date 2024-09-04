@@ -1,16 +1,17 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useSelectState } from '../model/useSelectState';
 import { CustomTags } from './custom-tags';
 import { DefaultTags } from './default-tags';
-import { cx } from '../styles'
 import { DefaultOptionsList } from './default-options-list';
 import { CustomOptionsList } from './custom-options-list';
 import { SearchInput } from './search-input';
 import { Selector } from './selector'
 import { CreateOption } from './createOption';
 import { mockAPIRequest } from '../../../lib';
-import { useClickOutside } from '../lib/useClickOutside';
+import { useClickOutside } from '../lib';
+import { cx } from '../styles'
 import type { SelectProps } from '../types'
+import { Dropdown } from './dropdown';
 
 
 export function CustomSelect<T>({
@@ -26,6 +27,13 @@ export function CustomSelect<T>({
 	dropdownRender,
 	createOptionAsync
 }: SelectProps<T>) {
+
+	const [selectorRect, setSelectorRect] = useState<{ top: number, left: number, bottom: number, right: number }>();
+
+	const selectRootRef = useRef<HTMLDivElement>(null)
+
+	const selectorRef = useRef<HTMLDivElement>(null)
+
 	const {
 		options,
 		selected,
@@ -42,8 +50,20 @@ export function CustomSelect<T>({
 		closeDropdown,
 	} = useSelectState<T>({ mode, disabled, initialOptions, onChange })
 
-	const selectRef = useRef(null)
-	useClickOutside(selectRef, closeDropdown)
+	useClickOutside(selectRootRef, closeDropdown)
+
+	const onSelectorClick = () => {
+		const rect = selectorRef.current?.getBoundingClientRect()
+		if (rect) {
+			setSelectorRect({
+				left: rect.left,
+				top: rect.top,
+				right: rect.right,
+				bottom: rect.bottom,
+			});
+		}
+		toggleOpen()
+	}
 
 
 	const searchInput = showSearch
@@ -60,11 +80,12 @@ export function CustomSelect<T>({
 		: (!showSearch && <div className={cx('placeholder')}>{placeholder}</div>)
 
 	let selector = <Selector
+		ref={selectorRef}
 		search={searchInput}
 		content={selectorContent}
 		disabled={disabled}
 		isOpen={isOpen}
-		onClick={toggleOpen}
+		onClick={onSelectorClick}
 		error={error}
 	/>
 
@@ -82,11 +103,11 @@ export function CustomSelect<T>({
 	}
 
 	return (
-		<div className={cx("wrap")} ref={selectRef}>
+		<div className={cx("wrap")} ref={selectRootRef}>
 			{selector}
-			<div className={cx('wrap_dropdown', { 'visually-hidden': !isOpen })} role='listbox'>
+			<Dropdown isOpen={isOpen} selectorRect={selectorRect}>
 				{dropdown}
-			</div>
+			</Dropdown>
 		</div>
 
 	);

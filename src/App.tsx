@@ -69,7 +69,8 @@ function App() {
 					dropdownRender={renderPreviewDropdown}
 				/>
 			</section>
-			<section className="w-[900px] mx-auto grid grid-cols-2 gap-7 mb-7">
+			<p className='w-[900px] mx-auto text-center mb-5'>А еще можно передать асинхронную функцию, чтобы пользователь мог добавлять новые елементы списка на удаленный сервер по API</p>
+			<section className="w-[900px] mx-auto mb-7">
 				<CustomSelect
 					<string>
 					options={sapmpleOptions}
@@ -79,7 +80,6 @@ function App() {
 					showSearch={true}
 					createOptionAsync={mockAPIRequest}
 				/>
-				<p>А еще можно передать асинхронную функцию, чтобы пользователь мог добавлять елементы списка на удаленный сервер по API</p>
 			</section>
 			<section className="w-[900px] mx-auto mb-7">
 				<div className='font-bold text-xl mb-4'>Дополнительные фичи:</div>
@@ -87,6 +87,8 @@ function App() {
 					<li className='mb-1'>Поддерживает TypeScript. Можно передать в него любой тип и он сохранит типизацию.</li>
 					<li className='mb-1'>Есть свойство error, которое можно использовать если вы хотите дополнительно валидировать содержимое</li>
 					<li className='mb-1'>Можно сделать селект неактивным с помощью свойства disabled</li>
+					<li className='mb-1'>Если внизу недостаточно места дропдаун появиться сверху</li>
+					<li className='mb-1'>Нет зависимостей и сторонних библиотек</li>
 				</ul>
 			</section>
 		</div>

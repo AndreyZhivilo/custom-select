@@ -6,7 +6,8 @@ export function useSelectState<T>({
 	initialOptions,
 	mode,
 	disabled,
-	onChange
+	onChange,
+	
 }: {
 	initialOptions: Option<T>[],
 	mode: 'single' | 'multiple' ,
@@ -80,10 +81,10 @@ export function useSelectState<T>({
 		isSelected(option.label)? onOptionDelete(option.label) : onOptionSelect(option)
 	}
 
-	const createOption = async (option: string, createOption: (option: string) => Promise<Option<T>>) => {
-		if(option.length === 0) return 
+	const createOption = async (label: string, createOptionAsync: (label: string) => Promise<Option<T>>) => {
+		if(label.length === 0) return 
 		setLoading(true)
-		createOption(option)
+		createOptionAsync(label)
 		.then((data) => {				
 				onOptionAdd(data)
 				onOptionClick(data)
@@ -97,6 +98,7 @@ export function useSelectState<T>({
 	const onSearch = (value: string) => {
 		setSearch(value)
 	}
+
 	
 	return {
 		search,

@@ -1,50 +1,47 @@
-# React + TypeScript + Vite
+# Кастомный Select + Combobox для React с поддержкой TypeScript
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Опции: 
 
-Currently, two official plugins are available:
+	1. options: {label: string, value: Т}[]
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+	Массив опций. Каждая опция это объект. Поле label всегда строка. Поле value может быть любым типом данных.
+	
+	2. mode?: 'single' | 'multiple' 
 
-## Expanding the ESLint configuration
+	Сколько опций можно выбрать одну или несколько. По умолчанию 'single'
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+	3. onChange: (value: T | T[] | null) => void,
+	
+	Функция, в которую селект будет передавать выбранные значения
+	
+	4. disabled?: boolean
 
-- Configure the top-level `parserOptions` property like this:
+	Сделать селект неактинвным. По умолчанию false	
+	
+	5. placeholder?: string
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+	Плейсхолдер
+	
+	6. showSearch?: boolean
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+	Нужен ли текстовый поиск по опциям. По умолчанию false
+	
+	7. error?: boolean
+	
+	Нужен если вы как-то валидируете значение. По умолчанию false
+	
+	8. tagRender?: (props: {label: string, value: T, onClose: () => void}) => ReactNode
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+	Кастомный тег. Учитывается только если включен режим множественного выбора. Функция которая возвращает ReactNode
+	
+	9. optionRender?: (props: {label: string, value: T, onClick: () => void, isSelected: boolean}) => ReactNode
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+	Кастомная опция. Функция которая возвращает ReactNode
+	
+	10. dropdownRender?: (menu: ReactNode) => ReactNode
+
+	Кастомный дропдаун. Функция, которая принимает компонент списка опций и возвращает ReactNode
+	
+	11. createOptionAsync?: (option: string) => Promise<Option<T>>
+
+	Асинхронная функция, которая позволяет добавить свою опцию в список и на удаленный сервер через API. Принимает в себя строку. Должа возвращать промис, который резолвиться объектом с опцией {label: string, value: Т}. Опция добавляется в спискок и в массив с выбранными опциями. Работает только при включенном поиске. 
